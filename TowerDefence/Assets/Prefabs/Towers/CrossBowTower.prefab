@@ -1,0 +1,227 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 1176089561442994}
+  m_IsPrefabParent: 1
+--- !u!1 &1176089561442994
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4176881390672260}
+  - component: {fileID: 114551048693709644}
+  - component: {fileID: 65401810109849842}
+  - component: {fileID: 114990815501837844}
+  m_Layer: 0
+  m_Name: CrossBowTower
+  m_TagString: Untagged
+  m_Icon: {fileID: 7250588514170254948, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1422287883544370
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4092766268950814}
+  m_Layer: 0
+  m_Name: TowerUpperPosition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1503339170624468
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4628314717622144}
+  m_Layer: 0
+  m_Name: AttackRadiusPos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1903425400419546
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4304934608548348}
+  m_Layer: 0
+  m_Name: CircleSelectPos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4092766268950814
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1422287883544370}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.813, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4176881390672260}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4176881390672260
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1176089561442994}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 1.2667562, y: -1.2705208e-17, z: 0.57219166}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 4304934608548348}
+  - {fileID: 4628314717622144}
+  - {fileID: 4092766268950814}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4304934608548348
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1903425400419546}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.05, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4176881390672260}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4628314717622144
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1503339170624468}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.04, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4176881390672260}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &65401810109849842
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1176089561442994}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.7093498, y: 1.1427755, z: 0.7246473}
+  m_Center: {x: -0.0076486766, y: 0.56600296, z: -0.010198355}
+--- !u!114 &114551048693709644
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1176089561442994}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e78e67a8ae6b9fa43a9797c1e15bfd5e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: "\u0410\u0440\u0431\u0430\u043B\u0435\u0442\u043D\u0430\u044F \u0431\u0430\u0448\u043D\u044F"
+  CircleSelectPos: {fileID: 4304934608548348}
+  CircleSelectPrefab: {fileID: 1826634507768684, guid: ea8f1e4235de0d14b93f9862805bfd93,
+    type: 2}
+  Icon: {fileID: 21300000, guid: b64bde7b366877647937de62f872e2fc, type: 3}
+  Tag: Tower
+  TowerStats:
+  - Cost: 20
+    Damage: 15
+    Range: 5
+    atkSpeed: 0.9
+    Aoe: 0
+    SellCost: 10
+    TowerUpper: {fileID: 1906053748381574, guid: 6f571604a4ef36a44a0e5b10b371dd83,
+      type: 2}
+    TowerBottom: {fileID: 1489317771074828, guid: 65bb4811c0efb3b4cac1f413e3d84551,
+      type: 2}
+  - Cost: 40
+    Damage: 18
+    Range: 5.3
+    atkSpeed: 0.7
+    Aoe: 0
+    SellCost: 20
+    TowerUpper: {fileID: 1447745636890424, guid: 053835e1ef678e54788ef5ff3bc4c8cb,
+      type: 2}
+    TowerBottom: {fileID: 1460935548451230, guid: c397e40eaa9e6034fb8ac323b43ac974,
+      type: 2}
+  - Cost: 80
+    Damage: 22
+    Range: 5.6
+    atkSpeed: 0.6
+    Aoe: 0
+    SellCost: 40
+    TowerUpper: {fileID: 1142325525693246, guid: 0775c36a9b623eb4a819b35908328c2e,
+      type: 2}
+    TowerBottom: {fileID: 1931646158673562, guid: dc9c0d90cce83e346b9d60886edce293,
+      type: 2}
+  MaxLevel: 3
+  BulletSpeed: 0.3
+  TypeElement: 0
+  TypeAttack: 0
+  RotationSpeed: 2
+  StartLevel: 0
+  CurRange: 0
+  CurTowerUpper: {fileID: 0}
+  BulletPrefab: {fileID: 1121418182883360, guid: 15b6f30158cb0f84c929dc72a3513d94,
+    type: 2}
+  BulletSpawnPoint: {fileID: 0}
+  AttackRadiusPrefab: {fileID: 1376002970340226, guid: 875fdd061135bbe4d80b94c4cb46d3ee,
+    type: 2}
+  AttackRadiusPos: {fileID: 4628314717622144}
+  TowerFoundation: {fileID: 0}
+  TowerUpperPosition: {fileID: 4092766268950814}
+  Target: {fileID: 0}
+  CanAttackFlyingUnits: 1
+  IncomeTextPrefab: {fileID: 0}
+  Modificator: {fileID: 0}
+--- !u!114 &114990815501837844
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1176089561442994}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4211d22d1d4156e41b33006fad5accdd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: "\u041A\u0440\u0438\u0442\u0438\u0447\u0435\u0441\u043A\u0430\u044F \u0430\u0442\u0430\u043A\u0430"
+  Icon: {fileID: 0}
+  Type: 0
+  CriticalChance: 30
+  CriticalPower: 2.08

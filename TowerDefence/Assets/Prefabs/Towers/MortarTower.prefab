@@ -1,0 +1,226 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 1944798322453706}
+  m_IsPrefabParent: 1
+--- !u!1 &1185746858705314
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4450093804642232}
+  m_Layer: 0
+  m_Name: TowerUpperPosition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1269250160455486
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4467427840745650}
+  m_Layer: 0
+  m_Name: CircleSelectPos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1413399981644182
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4481662201391786}
+  m_Layer: 0
+  m_Name: AttackRadiusPos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1944798322453706
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4961848176717500}
+  - component: {fileID: 114518018932369540}
+  - component: {fileID: 65970831618348470}
+  - component: {fileID: 114132827463074768}
+  m_Layer: 0
+  m_Name: MortarTower
+  m_TagString: Tower
+  m_Icon: {fileID: 2974397684917235467, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4450093804642232
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1185746858705314}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.006, y: 0.7804927, z: -0.015904903}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4961848176717500}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4467427840745650
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1269250160455486}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.05, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4961848176717500}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4481662201391786
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1413399981644182}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.04, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4961848176717500}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4961848176717500
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1944798322453706}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 3.76, y: 0, z: 3.9874701}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 4481662201391786}
+  - {fileID: 4467427840745650}
+  - {fileID: 4450093804642232}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &65970831618348470
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1944798322453706}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.7768614, y: 0.95450234, z: 0.81547046}
+  m_Center: {x: 0.0015946627, y: 0.41883594, z: -0.006379485}
+--- !u!114 &114132827463074768
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1944798322453706}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5a5a1be6f66cd94293d069310167929, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: "\u041E\u0436\u0435\u0433"
+  Icon: {fileID: 0}
+  Type: 1
+  DebuffPrefab: {fileID: 1199176117302320, guid: 6df7c784d5ace494a858dbc94d6e1a43,
+    type: 2}
+--- !u!114 &114518018932369540
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1944798322453706}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8719e3ccbc049fb47a71c353fa45d621, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: "\u041C\u043E\u0440\u0442\u0438\u0440\u043D\u0430\u044F \u0431\u0430\u0448\u043D\u044F"
+  CircleSelectPos: {fileID: 4467427840745650}
+  CircleSelectPrefab: {fileID: 1826634507768684, guid: ea8f1e4235de0d14b93f9862805bfd93,
+    type: 2}
+  Icon: {fileID: 21300000, guid: 422e4e661471af34f979455f5bb8969e, type: 3}
+  Tag: Tower
+  TowerStats:
+  - Cost: 30
+    Damage: 13
+    Range: 2.5
+    atkSpeed: 1.5
+    Aoe: 1
+    SellCost: 15
+    TowerUpper: {fileID: 1080412219353752, guid: fe9b90d46add265429fe4f375cacb7ac,
+      type: 2}
+    TowerBottom: {fileID: 1801400722335106, guid: 251507445c86f08468f7e5474c8f8918,
+      type: 2}
+  - Cost: 60
+    Damage: 16
+    Range: 2.9
+    atkSpeed: 1.3
+    Aoe: 1.4
+    SellCost: 30
+    TowerUpper: {fileID: 1623118568243640, guid: a2481a9e0cf3e094dba1086ac2e3cf1f,
+      type: 2}
+    TowerBottom: {fileID: 1399635905828712, guid: 41119fdf174157047a69f0448491f534,
+      type: 2}
+  - Cost: 120
+    Damage: 20
+    Range: 3.1
+    atkSpeed: 1.2
+    Aoe: 1.5
+    SellCost: 60
+    TowerUpper: {fileID: 1872177195362922, guid: 1b0a3577d8f644641bd13a201c429d37,
+      type: 2}
+    TowerBottom: {fileID: 1486671208865722, guid: 60ecbf93c01d5f94abb6b6a70237aa53,
+      type: 2}
+  MaxLevel: 3
+  BulletSpeed: 0.05
+  TypeElement: 1
+  TypeAttack: 1
+  RotationSpeed: 2
+  StartLevel: 0
+  CurRange: 0
+  CurTowerUpper: {fileID: 0}
+  BulletPrefab: {fileID: 1087827917750474, guid: ff7d153b8c099c14b882b67538361189,
+    type: 2}
+  BulletSpawnPoint: {fileID: 0}
+  AttackRadiusPrefab: {fileID: 1376002970340226, guid: 875fdd061135bbe4d80b94c4cb46d3ee,
+    type: 2}
+  AttackRadiusPos: {fileID: 4481662201391786}
+  TowerFoundation: {fileID: 0}
+  TowerUpperPosition: {fileID: 4450093804642232}
+  Target: {fileID: 0}
+  CanAttackFlyingUnits: 0
+  IncomeTextPrefab: {fileID: 0}

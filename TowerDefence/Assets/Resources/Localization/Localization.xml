@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<Locale>
+  	<group id="MainMenu">
+        <string id="StartGameBtn">
+		    <text lang="en">Play</text>
+			<text lang="ru">Играть</text>	
+        </string>	
+        <string id="ShopBtn">
+		    <text lang="en">Shop</text>
+			<text lang="ru">Магазин</text>	
+        </string>
+        <string id="SettingsBtn">
+		    <text lang="en">Settings</text>
+			<text lang="ru">Настройки</text>	
+        </string>
+        <string id="CreditsBtn">
+		    <text lang="en">Credits</text>
+			<text lang="ru">Разработчики</text>	
+        </string>
+  	</group>	
+</Locale>

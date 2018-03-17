@@ -1,0 +1,93 @@
+<Data>
+<!--Главное меню-->
+    <!--Главная панель-->
+  <RU Key = "StartGameBtn" Word = "Играть" />
+  <EN Key = "StartGameBtn" Word = "Play" />
+  
+  <RU Key = "ShopBtn" Word = "Магазин" />
+  <EN Key = "ShopBtn" Word = "Shop" />
+
+  <RU Key = "SettingsBtn" Word = "Настройки" />
+  <EN Key = "SettingsBtn" Word = "Settings" />
+
+  <RU Key = "CreditsBtn" Word = "Разработчики" />
+  <EN Key = "CreditsBtn" Word = "Credits" />
+  
+  <RU Key = "NewProfileTitle" Word = "Создание профиля" />
+  <EN Key = "NewProfileTitle" Word = "Create a profile" />
+
+  <RU Key = "ExitBtn" Word = "Выход" />
+  <EN Key = "ExitBtn" Word = "Exit" />
+
+    <!--Панель настроек-->
+  <RU Key = "SettingsTitle" Word = "Настройки" />
+  <EN Key = "SettingsTitle" Word = "Settings" />
+
+  <RU Key = "LanguageTxt" Word = "Язык" />
+  <EN Key = "LanguageTxt" Word = "Language" />
+
+  <RU Key = "InputNameTxt" Word = "Новое имя" />
+  <EN Key = "InputNameTxt" Word = "New name" />
+
+  <RU Key = "SaveBtn" Word = "Сохранить" />
+  <EN Key = "SaveBtn" Word = "Save" />
+
+  <RU Key = "BackBtn" Word = "Назад" />
+  <EN Key = "BackBtn" Word = "Back" />
+
+  <RU Key = "ResetBtn" Word = "Сброс" />
+  <EN Key = "ResetBtn" Word = "Reset" />
+   	<!--Карта-->
+  <RU Key = "MapTitle" Word = "Карта войны" />
+  <EN Key = "MapTitle" Word = "Defence map" />
+ <!--Игровой интерфейс-->
+  <RU Key = "WarningText" Word = "новая волна монстров на подходе!" />
+  <EN Key = "WarningText" Word = "new wave of monsters on the way!" />
+
+  <RU Key = "NotEnoughResourcesTxt" Word = "Не достаточно ресурсов" />
+  <EN Key = "NotEnoughResourcesTxt" Word = "Not enough resources" />
+
+  <RU Key = "DescriptionArmorUnitTxt" Word = "Защита" />
+  <EN Key = "DescriptionArmorUnitTxt" Word = "Armor" />
+
+  <RU Key = "DescriptionAtackTowerTxt" Word = "Атака" />
+  <EN Key = "DescriptionAtackTowerTxt" Word = "Attack" />
+
+  <RU Key = "UpgradeTowerBtn" Word = "Улучшить -" />
+  <EN Key = "UpgradeTowerBtn" Word = "Upgrade -" />
+
+  <RU Key = "SellTowerBtn" Word = "Продать -" />
+  <EN Key = "SellTowerBtn" Word = "Sell -" />
+
+<!--Панель поражения-->
+  <RU Key = "GameOverTitleText" Word = "Вы проиграли!" />
+  <EN Key = "GameOverTitleText" Word = "You lost!" />
+
+  <RU Key = "GameOverContentTxt" Word = "Слишком много монстров прошло через этот сектор" />
+  <EN Key = "GameOverContentTxt" Word = "Too many monsters have passed through this sector" />
+
+  <RU Key = "RestartBtn" Word = "Рестарт" />
+  <EN Key = "RestartBtn" Word = "Restart" />
+
+  <RU Key = "GameExitBtn" Word = "Главное меню" />
+  <EN Key = "GameExitBtn" Word = "Main menu" />
+
+<!--Панель победы-->
+  <RU Key = "VictoryTitleTxt" Word = "Вы победили!" />
+  <EN Key = "VictoryTitleTxt" Word = "You win!" />
+
+  <RU Key = "VictoryContentTxt" Word = "Вы убили всех монстров в этом секторе" />
+  <EN Key = "VictoryContentTxt" Word = "You killed all monsters in this sector" />
+
+  <RU Key = "VictoryNextBtn" Word = "Дальше" />
+  <EN Key = "VictoryNextBtn" Word = "Next" />
+
+<!--Меню паузы-->
+  <RU Key = "PauseTitleTxt" Word = "Пауза" />
+  <EN Key = "PauseTitleTxt" Word = "Pause" />
+
+
+	<!--Ошибка-->
+  <RU Key = "Error" Word = "Ошибка" />
+  <EN Key = "Error" Word = "Error" />
+</Data>
