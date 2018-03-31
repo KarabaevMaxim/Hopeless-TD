@@ -1,45 +1,17 @@
 <Data>
 <!--Главное меню-->
-    <!--Главная панель-->
-  <RU Key = "StartGameBtn" Word = "Играть" />
-  <EN Key = "StartGameBtn" Word = "Play" />
-  
-  <RU Key = "ShopBtn" Word = "Магазин" />
-  <EN Key = "ShopBtn" Word = "Shop" />
-
-  <RU Key = "SettingsBtn" Word = "Настройки" />
-  <EN Key = "SettingsBtn" Word = "Settings" />
-
-  <RU Key = "CreditsBtn" Word = "Разработчики" />
-  <EN Key = "CreditsBtn" Word = "Credits" />
-  
-  <RU Key = "NewProfileTitle" Word = "Создание профиля" />
-  <EN Key = "NewProfileTitle" Word = "Create a profile" />
-
-  <RU Key = "ExitBtn" Word = "Выход" />
-  <EN Key = "ExitBtn" Word = "Exit" />
-
     <!--Панель настроек-->
   <RU Key = "SettingsTitle" Word = "Настройки" />
   <EN Key = "SettingsTitle" Word = "Settings" />
 
   <RU Key = "LanguageTxt" Word = "Язык" />
   <EN Key = "LanguageTxt" Word = "Language" />
-
-  <RU Key = "InputNameTxt" Word = "Новое имя" />
-  <EN Key = "InputNameTxt" Word = "New name" />
-
-  <RU Key = "SaveBtn" Word = "Сохранить" />
-  <EN Key = "SaveBtn" Word = "Save" />
-
-  <RU Key = "BackBtn" Word = "Назад" />
-  <EN Key = "BackBtn" Word = "Back" />
-
-  <RU Key = "ResetBtn" Word = "Сброс" />
-  <EN Key = "ResetBtn" Word = "Reset" />
-   	<!--Карта-->
-  <RU Key = "MapTitle" Word = "Карта войны" />
-  <EN Key = "MapTitle" Word = "Defence map" />
+  <!--Панель достижений-->
+  <RU Key = "AchieveTitleTxt" Word = "Достижения" />
+  <EN Key = "AchieveTitleTxt" Word = "Achievements" />
+  <!--Карта-->
+  <RU Key = "LevelsPanelTitle" Word = "Миссии" />
+  <EN Key = "LevelsPanelTitle" Word = "Missions" />
  <!--Игровой интерфейс-->
   <RU Key = "WarningText" Word = "новая волна монстров на подходе!" />
   <EN Key = "WarningText" Word = "new wave of monsters on the way!" />

@@ -20,14 +20,14 @@ public class TowerFoundation : ClickableObject
     override protected void Update ()
     {
         base.Update();
-	}
+    }
 
     protected override void OnClick()
     {
         base.OnClick();
-            GameMode.gameHUD.targetSelect = gameObject;
-            gameMode.selectedGroundTowerID = id;
-            GameMode.gameHUD.showTowerShop();
+        GameMode.gameHUD.targetSelect = gameObject;
+        gameMode.selectedGroundTowerID = id;
+        GameMode.gameHUD.ShowTowerShop();
     }
 
     private void OnMouseDown()

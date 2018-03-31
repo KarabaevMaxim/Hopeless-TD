@@ -1959,8 +1959,8 @@ MonoBehaviour:
     type: 2}
   Icon: {fileID: 21300000, guid: 62693ab12411cba49923cdb2d13c3987, type: 3}
   Tag: Unit
-  BaseHealth: 350
-  BaseArmor: 15
+  BaseHealth: 450
+  BaseArmor: 20
   BaseSpeed: 0.8
   BaseReward: 30
   StartHealth: 0

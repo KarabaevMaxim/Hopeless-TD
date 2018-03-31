@@ -3,107 +3,86 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System;
-public class Globals : MonoBehaviour {
-
-	public string playerName;
-    public List<Level> gameLevels = new List<Level>();
+using System.Linq;
+public class Globals : MonoBehaviour
+{
+    public List<Level> GameLevels = new List<Level>();
     public static int CountNonPlayableScenes = 2;
-    [SerializeField] private string PlayerPrefsStringTemplate;
-    [SerializeField] private char delimiter;
-    public int MaxLevelRate;
+    public byte MaxLevelRate;
     private void Start()
     {
         DontDestroyOnLoad(gameObject);
+        LoadLevelsInfo();
 
-        ReadLevels();
         if (SceneManager.GetActiveScene().buildIndex == 0)
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
-    public void ReadLevels()
-    {
-        string _template = "";
-        for (int i = 0; i < gameLevels.Count; i++)
-        {
-            gameLevels[i].LevelID = i;
-            if (!PlayerPrefs.HasKey("Level" + gameLevels[i].LevelID)) // первичная инициализация
-            {
-                PlayerPrefs.SetString("Level" + gameLevels[i].LevelID, GetSaveString(i == 0 ? 1 : 0, 0, 0));
-                Debug.Log(GetSaveString(i == 0 ? 1 : 0, 0, 0));
-            }
-            else
-            {
-               // _template = PlayerPrefs.GetString("Level" + gameLevels[i].LevelID);
 
-                //ParseString(_template, out _opened, out _completed, out _rate);
-                //gameLevels[i].InitLevel(_opened, _completed, _rate);
-            }
-            bool _opened, _completed;
-            int _rate;
-            _template = PlayerPrefs.GetString("Level" + gameLevels[i].LevelID);
-            ParseString(_template, out _opened, out _completed, out _rate);
-            gameLevels[i].InitLevel(_opened, _completed, _rate);
-            //    Debug.Log(gameLevels[i].ToString());
-        }
-        
-    }
-    string GetSaveString(int _isOpened, int _isCompleted, int _rate)
+    private void LoadLevelsInfo() // загрузка информации обо всех уровнях с диска
     {
-        if (_isOpened > 1)
-            _isOpened = 1;
-        if (_isCompleted > 1)
-            _isCompleted = 1;
+        foreach (var item in GameLevels)
+        {
+            ReadLevelInfo(item.LevelID);
+        }
+    }
+    private void ReadLevelInfo(int _id)
+    {
+        if (PlayerPrefs.HasKey("Level" + _id))
+        {
+            Level _level = GameLevels.Where(l => l.LevelID == _id).FirstOrDefault();
+            bool _opened = false, _completed = false;
+            byte _rate = 0;
+            ParseLevelInfo(PlayerPrefs.GetString("Level" + _id), out _opened, out _completed, out _rate);
+            _level.InitLevel(_opened, _completed, _rate);
+        }
+        else
+        {
+            SaveLevelInfo(_id, 0, _id == 0 ? true : false, false);
+        }
+    }
+    private void ParseLevelInfo(string _content, out bool _opened, out bool _completed, out byte _rate)
+    {
+        string[] _info = _content.Split(new char[] { ';' });
+        _opened = _info[0] == "1" ? true : false;
+        _completed = _info[1] == "1" ? true : false;
+        if (!byte.TryParse(_info[2], out _rate))
+            Debug.LogWarning("Не удалось считать рейтинг миссии.");
+    }
+    public void SaveLevelInfo(int _id, byte _rate, bool _opened, bool _completed) // сохранение информации об уровне
+    {
+        Level _level = GameLevels.Where(l => l.LevelID == _id).FirstOrDefault();
+        _level.InitLevel(_opened, _completed, _rate);
+		string _content = (_opened ? "1" : "0") + ";" + (_completed ? "1" : "0") + ";" + _rate; //_opened;_completed;_rate
+        PlayerPrefs.SetString("Level" + _id, _content); // [LevelID] _opened;_completed;_rate
+        PlayerPrefs.Save();
+    }
+    public void CompleteLevel(byte _rate) // пройти уровень
+    {
         if (_rate > MaxLevelRate)
             _rate = MaxLevelRate;
-        return _isOpened.ToString() + delimiter + _isCompleted + delimiter + _rate; // получается строка вида 0;0;0
-    }
-    void ParseString(string _loadedString, out bool _isOpened, out bool _isCompleted, out int _rate)
-    {
-        if(_loadedString.Length != PlayerPrefsStringTemplate.Length)
+        else
         {
-            Debug.Log(_loadedString.Length + " " + PlayerPrefsStringTemplate.Length);
-            Debug.LogError("Строка \"" + _loadedString + "\" имеет неверный формат");
-            _isOpened = false;
-            _isCompleted = false;
-            _rate = 0;
-            return;
+            if (_rate < 0)
+                _rate = 0;
         }
-        _isOpened = Convert.ToBoolean(int.Parse(_loadedString[0].ToString()));
-        _isCompleted = Convert.ToBoolean(int.Parse(_loadedString[2].ToString()));
-        _rate = int.Parse(_loadedString[4].ToString());
+
+		SaveLevelInfo(Level.CurrentLevelID, _rate, true, true); // записать информацию об актуальном уровне
+        OpenLevel(Level.CurrentLevelID + 1); // открыть следующий за актуальным уровень
+    }
+	private void OpenLevel(int _index)
+	{
+        GameLevels[_index].OpenLevel();
+        SaveLevelInfo(_index, 0, true, false);
     }
 
     public void ResetPlayerPrefs()
     {
         PlayerPrefs.DeleteAll();
-        ReadLevels();
+        LoadLevelsInfo();
     }
-    public void ReadProfileName()
-    {
-        if (PlayerPrefs.HasKey("Profile_name"))
-            playerName = PlayerPrefs.GetString("Profile_name");
-        else
-            playerName = "";
-    }
-    public void PassLevel(int _rate)
-    {
-        if (_rate > MaxLevelRate)
-            _rate = MaxLevelRate;
-        if (_rate < 0)
-            _rate = 0;
-        gameLevels[Level.CurrentLevelID].PassLevel(_rate, gameLevels[Level.CurrentLevelID + 1]);
-        if (PlayerPrefs.HasKey("Level" + Level.CurrentLevelID)) 
-        {
-            PlayerPrefs.SetString("Level" + Level.CurrentLevelID, "1;1;" + _rate);
-        }
-        else
-        {
-            Debug.LogError("Записи Level" + Level.CurrentLevelID + " не существует.");
-        }
-    }
-
     public void LoadLevel(int _index)
     {
-        if (_index <= gameLevels.Count)
+        if (_index <= GameLevels.Count)
         {
             SceneManager.LoadScene(_index + CountNonPlayableScenes);
             Level.CurrentLevelID = _index;
@@ -111,14 +90,14 @@ public class Globals : MonoBehaviour {
         else
             Debug.LogError("Такого уровня нету.");
     }
-    public void LoadNextLevel()
+    public void LoadNextLevel() // загрузить следующий за актуальным уровень
     {
-        if (gameLevels[Level.CurrentLevelID + 1].opened)
+        if (GameLevels[Level.CurrentLevelID + 1].Opened)
             LoadLevel(Level.CurrentLevelID + 1);
         else
             Debug.Log("Уровень не открыт.");
     }
-    public void ReloadCurrentLevel()
+    public void ReloadCurrentLevel() // перезапуск уровня
     {
         LoadLevel(Level.CurrentLevelID);
     }

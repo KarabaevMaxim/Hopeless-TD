@@ -56,19 +56,19 @@ public class UnitBase : ClickableObject
     override protected void Start()
     {
         base.Start();
-        StartHealth =           BaseHealth * GameMode.DifficultyMultyplier;
+        StartHealth =           BaseHealth * GameMode.GameData.DifficultyMultyplier;
         CurHealth =             StartHealth;
 
-        StartArmor =            BaseArmor * GameMode.DifficultyMultyplier;
+        StartArmor =            BaseArmor * GameMode.GameData.DifficultyMultyplier;
 
         ChangeArmor(StartArmor);
 
-        StartSpeed =            BaseSpeed * GameMode.DifficultyMultyplier * GameMode.TimeSpeedMultyplier;
+        StartSpeed =            BaseSpeed * GameMode.GameData.DifficultyMultyplier * GameMode.TimeSpeedMultyplier;
         CurSpeed =              StartSpeed;
         
 
-        float _multiplier =     GameMode.DifficultyMultyplier >= 2.0f ? 0.05f : 1.0f;
-        StartReward =           Mathf.RoundToInt(BaseReward * GameMode.DifficultyMultyplier * _multiplier);
+        float _multiplier =     GameMode.GameData.DifficultyMultyplier >= 2.0f ? 0.05f : 1.0f;
+        StartReward =           Mathf.RoundToInt(BaseReward * GameMode.GameData.DifficultyMultyplier * _multiplier);
         CurReward =             StartReward;
         IsDead =                false;
         stage =                 1;

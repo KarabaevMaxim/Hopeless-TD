@@ -31,7 +31,6 @@ public class DamageText : MonoBehaviour {
 
     void Update()
     {
-        
         Vector3 screenPos = Camera.main.WorldToScreenPoint(vec);
         if (target != null)
         {

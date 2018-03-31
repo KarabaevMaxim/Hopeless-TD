@@ -49,7 +49,7 @@ public class BulletBase : MonoBehaviour
 
     protected bool moveToTarget(Vector3 _targetPos)
     {
-        if (Vector3.Distance(transform.position, _targetPos) >= 0.5f)
+        if (Vector3.Distance(transform.position, _targetPos) >= .6f)
         {
             count += Speed;
             transform.position = CurrentPosition(count, _targetPos);

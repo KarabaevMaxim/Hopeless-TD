@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4853564579843256}
   - component: {fileID: 114036728051042202}
+  - component: {fileID: 114590534755517458}
   m_Layer: 0
   m_Name: Globals
   m_TagString: Globals
@@ -51,25 +52,76 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0950b6e0f7018874e92bcaeb3a9e0504, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerName: 
-  gameLevels:
-  - name: "\u0428\u0430\u0445\u0442\u0430"
-    sceneID: 0
-    icon: {fileID: 21300000, guid: f9a4af7d63b75e94ca7a88acf9e08766, type: 3}
-    opened: 1
-    completed: 0
-    Rate: -1
-  - name: "\u0423\u0440\u043E\u0432\u0435\u043D\u044C 1"
-    sceneID: 1
-    icon: {fileID: 21300000, guid: ef010171fb9d8e04d8e39c01a670b99b, type: 3}
-    opened: 0
-    completed: 0
-    Rate: -1
-  - name: "\u0422\u0435\u0441\u0442"
-    sceneID: 2
-    icon: {fileID: 21300000, guid: ef010171fb9d8e04d8e39c01a670b99b, type: 3}
-    opened: 0
-    completed: 0
-    Rate: -1
-  PlayerPrefsStringTemplate: 0;0;0
-  delimiter: 59
+  GameLevels:
+  - Name: "\u041F\u0435\u0440\u0432\u044B\u0439 \u0443\u0440\u043E\u0432\u0435\u043D\u044C"
+    LevelID: 0
+    Icon: {fileID: 0}
+    Opened: 1
+    Completed: 1
+    Rate: 3
+  - Name: "\u0412\u0442\u043E\u0440\u043E\u0439 \u0443\u0440\u043E\u0432\u0435\u043D\u044C"
+    LevelID: 1
+    Icon: {fileID: 0}
+    Opened: 1
+    Completed: 1
+    Rate: 2
+  - Name: "\u0422\u0440\u0435\u0442\u0438\u0439 \u0443\u0440\u043E\u0432\u0435\u043D\u044C"
+    LevelID: 2
+    Icon: {fileID: 0}
+    Opened: 1
+    Completed: 0
+    Rate: 0
+  - Name: "\u0427\u0435\u0442\u0432\u0435\u0440\u0442\u044B\u0439 \u0443\u0440\u043E\u0432\u0435\u043D\u044C"
+    LevelID: 3
+    Icon: {fileID: 0}
+    Opened: 0
+    Completed: 0
+    Rate: 0
+  MaxLevelRate: 3
+--- !u!114 &114590534755517458
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1530571535020820}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 701cca3ace9a2414a9f6f7a04da9e0a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Achievements:
+  - IsCompleted: 1
+    Name: "\u0410\u0447\u0438\u0432\u043A\u0430 1"
+    Description: "\u041F\u0435\u0440\u0432\u0430\u044F \u0430\u0447\u0438\u0432\u043A\u0430"
+    TargetValue: 1
+    CurrentValue: 1
+    LockedIcon: {fileID: 21300000, guid: 3244a48d920c1440cb5fc8d60df2834d, type: 3}
+    UnlockedIcon: {fileID: 21300000, guid: 728803b8c46f7415fa3a8570722a1e29, type: 3}
+  - IsCompleted: 0
+    Name: "\u0410\u0447\u0438\u0432\u043A\u0430 2"
+    Description: "\u0412\u0442\u043E\u0440\u0430\u044F \u0430\u0447\u0438\u0432\u043A\u0430"
+    TargetValue: 100
+    CurrentValue: 50
+    LockedIcon: {fileID: 21300000, guid: 3244a48d920c1440cb5fc8d60df2834d, type: 3}
+    UnlockedIcon: {fileID: 21300000, guid: 728803b8c46f7415fa3a8570722a1e29, type: 3}
+  - IsCompleted: 0
+    Name: "\u0410\u0447\u0438\u0432\u043A\u0430 3"
+    Description: "\u0422\u0440\u0435\u0442\u044C\u044F \u0430\u0447\u0438\u0432\u043A\u0430"
+    TargetValue: 1
+    CurrentValue: 0
+    LockedIcon: {fileID: 21300000, guid: 3244a48d920c1440cb5fc8d60df2834d, type: 3}
+    UnlockedIcon: {fileID: 21300000, guid: 728803b8c46f7415fa3a8570722a1e29, type: 3}
+  - IsCompleted: 1
+    Name: "\u0410\u0447\u0438\u0432\u043A\u0430 4"
+    Description: "\u0427\u0435\u0442\u0432\u0435\u0440\u0442\u0430\u044F \u0430\u0447\u0438\u0432\u043A\u0430"
+    TargetValue: 1
+    CurrentValue: 1
+    LockedIcon: {fileID: 21300000, guid: 3244a48d920c1440cb5fc8d60df2834d, type: 3}
+    UnlockedIcon: {fileID: 21300000, guid: 728803b8c46f7415fa3a8570722a1e29, type: 3}
+  - IsCompleted: 1
+    Name: "\u0410\u0447\u0438\u0432\u043A\u0430 5"
+    Description: "\u041F\u044F\u0442\u0430\u044F \u0430\u0447\u0438\u0432\u043A\u0430"
+    TargetValue: 1
+    CurrentValue: 1
+    LockedIcon: {fileID: 21300000, guid: 3244a48d920c1440cb5fc8d60df2834d, type: 3}
+    UnlockedIcon: {fileID: 21300000, guid: 728803b8c46f7415fa3a8570722a1e29, type: 3}

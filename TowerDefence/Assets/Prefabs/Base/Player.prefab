@@ -39,9 +39,10 @@ GameObject:
   m_Component:
   - component: {fileID: 4209712772699036}
   - component: {fileID: 114730314130118112}
+  - component: {fileID: 114527475038452866}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -123,6 +124,24 @@ Behaviour:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1079664450427872}
   m_Enabled: 1
+--- !u!114 &114527475038452866
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1853935250120166}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 003871655c8d1e948bfe02c833ec8329, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CindTowers:
+  - {fileID: 1176089561442994, guid: d9b7a311ef74f98448e7a18ec2a9d856, type: 2}
+  - {fileID: 1704215031917626, guid: a7f9021dbd653194996b188232896bb4, type: 2}
+  - {fileID: 1460584562431500, guid: bcf8d3356565d324c8f028a94dc9d68c, type: 2}
+  - {fileID: 1801698655387684, guid: 40112ce28a557674294725e0111d744e, type: 2}
+  - {fileID: 1944798322453706, guid: 7d3cd46a606582542bd90dd9058c06c0, type: 2}
+  DifficultyMultyplier: 1
 --- !u!114 &114730314130118112
 MonoBehaviour:
   m_ObjectHideFlags: 1

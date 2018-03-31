@@ -6,17 +6,20 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Maps/Demo2_towers.unity
-    guid: d79ef04b6fcff9c42b3c497224cff531
-  - enabled: 0
+    path: Assets/Maps/Loading.unity
+    guid: 7035147c2bf1af241ad54ba8e0b4d9ee
+  - enabled: 1
     path: Assets/Maps/MainMenu.unity
     guid: 670f37c568d5f90418c744edd187b122
-  - enabled: 0
-    path: Assets/Maps/Test.unity
-    guid: 61743bf2eddbfd544854791ace5422a6
-  - enabled: 0
+  - enabled: 1
     path: Assets/Maps/Demo.unity
     guid: 41ff2c02dbe25074f9c3c5061d033587
-  - enabled: 0
+  - enabled: 1
     path: Assets/Maps/1 Level.unity
     guid: e38299c0f234dd345b31cc396465d03d
+  - enabled: 1
+    path: Assets/Maps/Demo2_towers.unity
+    guid: d79ef04b6fcff9c42b3c497224cff531
+  - enabled: 1
+    path: Assets/Maps/Test.unity
+    guid: 61743bf2eddbfd544854791ace5422a6

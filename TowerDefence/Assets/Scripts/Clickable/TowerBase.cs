@@ -28,7 +28,8 @@ public class TowerBase : ClickableObject
     public Transform AttackRadiusPos;
     
     Vector3 StartScaleRadius;
-    [HideInInspector] public GameObject TowerFoundation;
+    //[HideInInspector]
+    public GameObject TowerFoundation;
     [SerializeField] private Transform TowerUpperPosition;
     //public Transform TowerUpper; // вращающаяся часть башни
 

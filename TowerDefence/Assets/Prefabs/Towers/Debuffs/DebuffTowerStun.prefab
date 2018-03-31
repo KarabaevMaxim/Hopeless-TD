@@ -143,7 +143,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: 3
   Name: "\u041E\u0433\u043B\u0443\u0448\u0435\u043D\u0438\u0435"
-  Duration: 0.3
+  Duration: 0.5
   TypeElement: 3
   DebuffTime: 0
   HealthBarColor: {r: 0.6039216, g: 0.6039216, b: 0.6039216, a: 1}

@@ -4,19 +4,28 @@ using UnityEngine.EventSystems;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 public class MainMenu : MonoBehaviour {
 
     public GameObject mainPanel;
-    public GameObject settingsPanel;
-    public Text profileNameTextInput;
-    public Text StartProfileNameTextInput;
-    public Text profileNameText;
-    public GameObject mapPanel;
-    public GameObject buttonMapPrefab;
-    public List<GameObject> mapButtons = new List<GameObject>();
-    public GameObject CreateNewProfilePanel;
+    [Header("Миссии")]
+    [SerializeField] private GameObject levelsPanel;
+    [SerializeField] private GameObject levelListPrefab;
+    [SerializeField] private Transform levelListParent;
+    [SerializeField] private Sprite levelNotOpenedIcon;
+    [SerializeField] private Sprite levelOpenedIcon;
+    [SerializeField] private Sprite starNotOpenedIcon;
+    [SerializeField] private Sprite starOpenedIcon;
+    public List<GameObject> LevelList = new List<GameObject>();
 
-    //ссылки для локализации
+    [Header("Достижения")]
+    [SerializeField] private GameObject achievementsField;
+    [SerializeField] private GameObject achievementPrefab;
+    [SerializeField] private Transform achievementListParent;
+    private AchievementSystem achieveSystem;
+    private List<GameObject> achieveElements = new List<GameObject>();
+    [Header("Настройки")]
+    public GameObject settingsPanel;
     public Dropdown LanguageCmb;
 
     static public Globals globals;
@@ -24,9 +33,10 @@ public class MainMenu : MonoBehaviour {
     {
         //LocalizationManager.instance.Translate();
         globals = GameObject.FindGameObjectWithTag("Globals").GetComponent<Globals>();
+        achieveSystem = globals.GetComponent<AchievementSystem>();
+        if (achieveSystem == null)
+            Debug.LogWarning("Компонент AchieveSystem не найден у объекта с тегом Globals");
         showMainMenu();
-
- 
     }
     public void ShowSettings()
     {
@@ -39,98 +49,69 @@ public class MainMenu : MonoBehaviour {
     {
         settingsPanel.SetActive(false);
     }
-    private void saveProfileName(Text _inputField)
-    {
-        PlayerPrefs.SetString("Profile_name", _inputField.text);
-        globals.playerName = _inputField.text;
-        PlayerPrefs.Save();
-        CloseProfileNameStartInputWindow();
-        updateProfileName();
-    }
-    public void SaveProfileBtnClick()
-    {
-        saveProfileName(profileNameTextInput.IsActive() ? profileNameTextInput : StartProfileNameTextInput);
-    }
+
     public void showMainMenu()
     {
-       
         mainPanel.SetActive(true);
         LocalizationManager.instance.Translate();
-        updateProfileName();
         CloseSettings();
+        CloseAchievements();
         CloseMap();
     }
     public void CloseMainMenu()
     {
         mainPanel.SetActive(false);
     }
+    void OpenLevel(int _index)
+    {
+        globals.LoadLevel(_index);
+    }
+    UnityAction OpenLevelDelegate(int _index)
+    {
+        return delegate { OpenLevel(_index); };
+    }
     public void ShowMap()
     {
         mainPanel.SetActive(false);
         settingsPanel.SetActive(false);
-        mapPanel.SetActive(true);
-        List<GameObject> emptyButtons = new List<GameObject>();
-        GameObject[] _emptyButtons = GameObject.FindGameObjectsWithTag("EmptyButtonMap");
-        int _j = 0;
-        foreach (var item in _emptyButtons)
+        levelsPanel.SetActive(true);
+        for (int i = 0; i < globals.GameLevels.Count; i++)
         {
-            emptyButtons.Add(_emptyButtons[_j]);
-            _j++;
-        }
-        int _i = 0;
-        foreach (var item in globals.gameLevels)
-        {
-            if (item.opened)
+            LevelList.Add(Instantiate(levelListPrefab, levelListParent));
+            LevelListElement _lle = LevelList.Last().GetComponent<LevelListElement>();
+            _lle.NumberText.text = (globals.GameLevels[i].LevelID + 1).ToString();
+            if(!globals.GameLevels[i].Opened)
             {
-                mapButtons.Add(Instantiate(buttonMapPrefab, emptyButtons[_i].transform));
-                RectTransform _rt = mapButtons[_i].GetComponent<RectTransform>();
-                _rt.anchorMin = new Vector2(0.045f, 0.05546643f);
-                _rt.anchorMax = new Vector2(0.955f, 0.9444665f);
-                _rt.offsetMin = new Vector2(0, 0);
-                _rt.offsetMax = new Vector2(0, 0);
-                mapButtons[_i].GetComponent<LevelLoad>().mapId = item.LevelID;
-                mapButtons[_i].GetComponent<Image>().sprite = item.icon;
-                Image _img = emptyButtons[_i].GetComponent<Image>();
-                _img.color = new Color(_img.color.r,
-                                       _img.color.g,
-                                       _img.color.b, 
-                                       0.0f);
-                
+                LevelList.Last().GetComponent<Image>().sprite = levelNotOpenedIcon;
+                LevelList.Last().GetComponent<Button>().interactable = false;
             }
             else
             {
-                Image _img = emptyButtons[_i].GetComponent<Image>();
-                _img.color = new Color(_img.color.r,
-                                       _img.color.g,
-                                       _img.color.b,
-                                      100.0f);
+                LevelList.Last().GetComponent<Image>().sprite = levelOpenedIcon;
+                _lle.LockedImg.color += new Color(0, 0, 0, -255);
+                if(globals.GameLevels[i].Completed)
+                {
+                    for (int j = 0; j < globals.GameLevels[i].Rate; j++)
+                    {
+                        _lle.Stars[j].sprite = starOpenedIcon;
+                    }
+                }
             }
-            _i++;
+            LevelList.Last().GetComponent<Button>().onClick.AddListener(OpenLevelDelegate(globals.GameLevels[i].LevelID));
         }
         LocalizationManager.instance.Translate();
     }
     public void CloseMap()
     {
-        mapPanel.SetActive(false);
-        if (mapButtons.Count > 0)
+        levelsPanel.SetActive(false);
+        if (LevelList.Count > 0)
         {
-            foreach (var item in mapButtons)
+            foreach (var item in LevelList)
             {
                 Destroy(item);
             }
-            mapButtons.Clear();
+            LevelList.Clear();
         }
-    }
-
-    public void updateProfileName()
-    {
-        globals.ReadProfileName();
-        if (globals.playerName != "")
-            CloseProfileNameStartInputWindow();
-        else
-            ShowProfileNameStartInputWindow();
-        profileNameText.text = globals.playerName;
-
     }
 
     public void UpdateLanguage()
@@ -166,17 +147,35 @@ public class MainMenu : MonoBehaviour {
         }
     }
 
-    private void ShowProfileNameStartInputWindow()
-    {
-        CreateNewProfilePanel.SetActive(true);
-    }
-    private void CloseProfileNameStartInputWindow()
-    {
-        CreateNewProfilePanel.SetActive(false);
-    }
 
     public void ResetButtonClick()
     {
         globals.ResetPlayerPrefs();
+    }
+
+    public void ShowAchievements()
+    {
+        for (int i = 0; i < achieveSystem.Achievements.Count; i++)
+        {
+            achieveElements.Add(Instantiate(achievementPrefab, achievementListParent));
+            RectTransform _rt = achieveElements.Last().GetComponent<RectTransform>();
+
+            AchievementListElement _ale = achieveElements.Last().GetComponent<AchievementListElement>();
+            _ale.TitleText.text = achieveSystem.Achievements[i].Name;
+            _ale.DescText.text = achieveSystem.Achievements[i].Description;
+            _ale.TargetText.text = achieveSystem.Achievements[i].CurrentValue + "/" + achieveSystem.Achievements[i].TargetValue;
+            _ale.ProgressBar.fillAmount = achieveSystem.Achievements[i].CurrentValue / (float)achieveSystem.Achievements[i].TargetValue;
+            _ale.Icon.sprite = achieveSystem.Achievements[i].IsCompleted ? achieveSystem.Achievements[i].UnlockedIcon : achieveSystem.Achievements[i].LockedIcon;
+            
+            _rt.anchoredPosition = new Vector2(_rt.sizeDelta.x / -2, -(i + 1) * (_rt.sizeDelta.y));
+
+        }
+        CloseMainMenu();
+        achievementsField.SetActive(true);
+        LocalizationManager.instance.Translate();
+    }
+    private void CloseAchievements()
+    {
+        achievementsField.SetActive(false);
     }
 }

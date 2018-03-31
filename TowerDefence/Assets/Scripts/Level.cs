@@ -6,42 +6,36 @@ using UnityEngine.SceneManagement;
 [System.Serializable]
 public class Level
 {
-    public string name;
+    public string Name;
     public int LevelID;
-    [SerializeField] public Scene scene;
-    public Sprite icon;
-    public bool opened;
-    public bool completed;
-    public int Rate;
+    [SerializeField] public Scene LevelScene;
+    public Sprite Icon;
+    public bool Opened;
+    public bool Completed;
+    public byte Rate;
     static public int CurrentLevelID = -1;
     public override string ToString()
     {
-        return "Название: " + name + "/ID: " + LevelID + "/Открыта: " + opened + "/Завершена: " + completed + "/Рейтинг: " + Rate;
+        return "Название: " + Name + "/ID: " + LevelID + "/Открыта: " + Opened + "/Завершена: " + Completed + "/Рейтинг: " + Rate;
     }
 
     void CompleteLevel()
     {
-        completed = true;
+        Completed = true;
     }
-    void OpenLevel()
+    public void OpenLevel()
     {
-        opened = true;
-        Debug.Log(name + " Открываю левел");
+        Opened = true;
+        Debug.Log(Name + " Открываю левел");
     }
-    void RateLevel(int _rate)
+    void RateLevel(byte _rate)
     {
         Rate = _rate;
     }
-    public void PassLevel(int _rate, Level _next)
+    public void InitLevel(bool _opened, bool _completed, byte _rate)
     {
-        CompleteLevel();
-        _next.OpenLevel();
-        RateLevel(_rate);
-    }
-    public void InitLevel(bool _opened, bool _completed, int _rate)
-    {
-        opened = _opened;
-        completed = _completed;
+        Opened = _opened;
+        Completed = _completed;
         Rate = _rate;
     }
 }

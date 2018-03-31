@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System;
+using UnityEngine.Events;
 public class GameHUD : MonoBehaviour
 {
     public Text DiamondText;
@@ -18,14 +19,16 @@ public class GameHUD : MonoBehaviour
 
 
     //магазин
-    public GameObject shopBackgroud;
-    public List<Text> textCost = new List<Text>();
+    [SerializeField] private GameObject buttonTowerPrefab;
+    [SerializeField] private Transform towerButtonsParent;
     public List<GameObject> buttonTowers = new List<GameObject>();
     public GameObject GameOverPanel; // панель интерфеса после поражения
     public GameObject VictoryPanel; // панель интерфейса после победы
     public GameObject textWarning;
     [HideInInspector] public float timerToCloseWarning = 0;
     [HideInInspector] public float timeToCloseWarning = 2.0f;
+    [HideInInspector] public bool IsButtonsTowerShow = false;
+    
     
 
     [HideInInspector] public Animator warningTextAnim;
@@ -67,7 +70,7 @@ public class GameHUD : MonoBehaviour
     {
      //   LocalizationManager.instance.Translate();
         CloseDescriptionUnit();
-        closeTowerShop();
+        CloseTowerShop();
         DescriptionTowerPanel.SetActive(true);
         TextTowerName.text = _name;
         TextTowerDamage.text = _damage.ToString();
@@ -82,9 +85,9 @@ public class GameHUD : MonoBehaviour
     }
     public void ShowDescriptionUnit(string _name, float _armor, float _resist, float _curHealth, float _startHealth, Sprite _icon)
     {
-      //  LocalizationManager.instance.Translate();
+        //LocalizationManager.instance.Translate();
         CloseDescriptionTower();
-        closeTowerShop();
+        CloseTowerShop();
         DescriptionUnitPanel.SetActive(true);
         TextUnitName.text = _name;
         TextUnitArmor.text = Mathf.Round(_armor).ToString();
@@ -117,21 +120,11 @@ public class GameHUD : MonoBehaviour
         CloseDescriptionTower();
         GameOverPanel.SetActive(false);
         VictoryPanel.SetActive(false);
-        closeTowerShop();
+        CloseTowerShop();
         timerToCloseWarning = timeToCloseWarning;
         warningTextAnim = textWarning.gameObject.GetComponent<Animator>();
         NotEnoughResoursesPanelAnim = NotEnoughResoursesPanel.gameObject.GetComponent<Animator>();
-        int i = 0;
-        foreach (var item in buttonTowers) // кнопок пока строго 5
-        {
-            if (gameMode.CindTowers[i].GetComponent<TowerBase>() != null)
-            {
-                item.GetComponent<Image>().sprite = gameMode.CindTowers[i].GetComponent<TowerBase>().Icon;
-                item.transform.Find("textCost").GetComponent<Text>().text = gameMode.CindTowers[i].GetComponent<TowerBase>().TowerStats[0].Cost.ToString();
-                item.transform.Find("textName").GetComponent<Text>().text = gameMode.CindTowers[i].GetComponent<TowerBase>().Name;
-            }
-            i++;
-        }
+
         isWarningShowed = false;
         UI = GameObject.FindGameObjectWithTag("UI");
         globals = GameObject.FindGameObjectWithTag("Globals").GetComponent<Globals>();
@@ -157,10 +150,15 @@ public class GameHUD : MonoBehaviour
                         Destroy(ClickableObject.AttackRadiusObject);
                     CloseDescriptionTower();
                     CloseDescriptionUnit();
-                    closeTowerShop();
+                    CloseTowerShop();
                     targetSelect = null;
                 }
             }
+            if(IsButtonsTowerShow)
+            {
+                setButtonsTowerPosition();
+            }
+
         }
     }
 
@@ -171,6 +169,7 @@ public class GameHUD : MonoBehaviour
     {
         GameObject _text = Instantiate(damageTextPrefab, UI.transform);
         _text.GetComponent<DamageText>().target = DamageTarget;
+        _text.GetComponent<RectTransform>().anchoredPosition = new Vector2(-10, -10);
         _text = null;
     }
 
@@ -184,18 +183,63 @@ public class GameHUD : MonoBehaviour
         CloseDescriptionTower();
     }
 
-
-    public void showTowerShop()
+    private void setButtonsTowerPosition()
     {
-        shopBackgroud.SetActive(true);
+        List<GameObject> _cindTowers = GameMode.GameData.CindTowers;
+        Vector3 screenPos = Camera.main.WorldToScreenPoint(targetSelect.transform.position); // центр круга
+        float _r = 10 * _cindTowers.Count; // радиус окружности, на которой будут располагаться кнопки магазина
+        float _360degrees = Mathf.PI * 2;
+        float _angleStep = _360degrees / (float)_cindTowers.Count;
+        for (int i = 0; i < _cindTowers.Count; i++)
+        {
+            float _angle = (i + 1) * _angleStep;
+            RectTransform _rt = buttonTowers[i].GetComponent<RectTransform>();
+            Vector2 buttonPos = new Vector2((_r * Mathf.Cos(_angle)) + screenPos.x, //x = R * cos(угол) 
+                                            (_r * Mathf.Sin(_angle)) + screenPos.y); //y = R * sin(угол)
+            _rt.position = new Vector3(buttonPos.x, buttonPos.y, 0);
+            
+        }
+    }
+    public void ShowTowerShop()
+    {
+        CloseTowerShop();
+        List<GameObject> _cindTowers = GameMode.GameData.CindTowers;
+        IsButtonsTowerShow = true;
+        float _width = 50; // ширина кнопки
+        float _height = 50; // высота кнопки
+        for (int i = 0; i < _cindTowers.Count; i++)
+        {
+            if (_cindTowers[i].GetComponent<TowerBase>() != null)
+            {
+                buttonTowers.Add(Instantiate(buttonTowerPrefab, towerButtonsParent));
+                RectTransform _rt = buttonTowers[i].GetComponent<RectTransform>();
+                _rt.sizeDelta = new Vector2(_width, _height);
+                buttonTowers[i].GetComponent<Image>().sprite = _cindTowers[i].GetComponent<TowerBase>().Icon;
+                buttonTowers[i].transform.Find("textCost").GetComponent<Text>().text = _cindTowers[i].GetComponent<TowerBase>().TowerStats[0].Cost.ToString();
+                buttonTowers[i].GetComponent<Button>().onClick.AddListener(BuildTowerDelegate(i));
+            }
+        }
         CloseDescriptionUnit();
         CloseDescriptionTower();
     }
-    public void closeTowerShop()
+    UnityAction BuildTowerDelegate(int _index)
     {
-        if (shopBackgroud.activeInHierarchy)
+        return delegate { BuildTower(_index); };
+    }
+    public void CloseTowerShop()
+    {
+        IsButtonsTowerShow = false;
+        if (buttonTowers.Count > 0)
         {
-            shopBackgroud.SetActive(false);
+            for (int i = 0; i < buttonTowers.Count; i++)
+            {
+                if (buttonTowers[i] != null)
+                {
+                    buttonTowers[i].GetComponent<Button>().onClick.RemoveListener(() => BuildTower(i));
+                    Destroy(buttonTowers[i]);
+                }
+            }
+            buttonTowers.Clear();
         }
     }
     public void showGameOverPanel()

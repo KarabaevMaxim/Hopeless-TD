@@ -4,35 +4,21 @@ using UnityEngine;
 using System;
 using System.Linq;
 using UnityEngine.SceneManagement;
-public enum AttackType
-{
-    Target = 0,
-    NonTarget,
-    Chain,
-    Income
-}
-public enum Element
-{
-    Normal = 0,
-    Fire,
-    Water,
-    Electric,
-    Earth
-}
+
 
 public class GameMode : MonoBehaviour
 {
     public int Diamonds = 0;
+    public int DiamondsToGoodRate;
     [HideInInspector] public int LosesUnits = 0;
     public int maxLostUnits = 100;
     public int CountWaves;
-    //[HideInInspector]
-    public int CurWave;
+    [HideInInspector] public int CurWave;
     public int NextWave;
     [HideInInspector] public List<GameObject> GameUnits = new List<GameObject>();
     [HideInInspector] public List<GameObject> GameTowers = new List<GameObject>(); // построенные башни
-    public List<GameObject> CindTowers = new List<GameObject>(); // префабы всех видов башен в игре
-     public List<GameObject> GroundTower = new List<GameObject>();
+
+    public List<GameObject> GroundTower = new List<GameObject>();
     [HideInInspector] public int selectedGroundTowerID = -1;
     public List<Wave> Waves = new List<Wave>();
     public List<GameObject> Areas = new List<GameObject>();
@@ -46,8 +32,8 @@ public class GameMode : MonoBehaviour
     private bool created = true;
     private int key = 0;
     [HideInInspector] public bool gameOver = false;
-    [HideInInspector]public bool victory = false;
-    [HideInInspector]public bool pause = false;
+    [HideInInspector] public bool victory = false;
+    [HideInInspector] public bool pause = false;
     static public GameHUD gameHUD;
     [HideInInspector] public Globals globals;
     //время
@@ -55,10 +41,10 @@ public class GameMode : MonoBehaviour
     private float _timeMS;
 
     static public float TimeSpeedMultyplier = 1.0f;
-    static public float DifficultyMultyplier = 1.0f;
 
+    static public DataSet GameData;
     static public GameObject PriorityTarget;
-    public int CurrentLevelRate = 10;
+    public byte CurrentLevelRate = 0;
     private void Start()
     {
         gameOver = false;
@@ -68,9 +54,7 @@ public class GameMode : MonoBehaviour
         CountWaves = Waves.Count;
         CurWave = 0;
         foreach (var item in GameObject.FindGameObjectsWithTag("Tower"))
-        {
             GameTowers.Add(item);
-        }
         int _i = 0;
         GroundTower = GameObject.FindGameObjectsWithTag("TowerFoundation").ToList();
         foreach (var item in GroundTower)
@@ -80,6 +64,7 @@ public class GameMode : MonoBehaviour
         }
         gameHUD = GameObject.FindGameObjectWithTag("UI").GetComponent<GameHUD>();
         globals = GameObject.FindGameObjectWithTag("Globals").GetComponent<Globals>();
+        GameData = GameObject.FindGameObjectWithTag("Player").GetComponent<DataSet>();
     }
 
     void Update()
@@ -108,17 +93,17 @@ public class GameMode : MonoBehaviour
                 if (GameUnits.Count <= 0 && !created)
                 Victory();
 
-            if (timeWave <= 0.0f && created) 
+            if (timeWave <= 0.0f && created)
             {
                 NextWave = CurWave + 1;
                 if (CurWave < CountWaves)
-                {              
+                {
                     if (timeUnit <= 0)
                     {
                         if (key <= Waves[CurWave].Units.Count - 1)
                         {
-                            GameUnits.Add(Instantiate(Waves[CurWave].Units[key], 
-                            new Vector3(Areas[0].transform.position.x, 
+                            GameUnits.Add(Instantiate(Waves[CurWave].Units[key],
+                            new Vector3(Areas[0].transform.position.x,
                                         Areas[0].transform.position.y + Waves[CurWave].Units[key].GetComponent<UnitBase>().HeightSpawn,
                                         Areas[0].transform.position.z),
                                         Quaternion.identity));
@@ -132,7 +117,7 @@ public class GameMode : MonoBehaviour
                             timeUnit = timeToNextUnit;
                             if (CurWave < CountWaves)
                             {
-                                
+
                                 timeWave = timeToNextWave;
                             }
 
@@ -142,7 +127,7 @@ public class GameMode : MonoBehaviour
                     {
                         timeUnit -= Time.deltaTime;
                     }
-                    
+
                 }
                 else
                 {
@@ -176,17 +161,17 @@ public class GameMode : MonoBehaviour
     }
     public void BuildTower(int _buttonIndex)
     {
-        TowerBase _cindTower = CindTowers[_buttonIndex].GetComponentInChildren<TowerBase>();
+        TowerBase _cindTower = GameData.CindTowers[_buttonIndex].GetComponentInChildren<TowerBase>();
         if (Diamonds >= _cindTower.TowerStats[0].Cost)
         {
-            GameTowers.Add(Instantiate(CindTowers[_buttonIndex], 
-                     GroundTower.Where(gt => gt.GetComponent<TowerFoundation>().id == selectedGroundTowerID).FirstOrDefault().transform.position, 
+            GameTowers.Add(Instantiate(GameData.CindTowers[_buttonIndex],
+                     GroundTower.Where(gt => gt.GetComponent<TowerFoundation>().id == selectedGroundTowerID).FirstOrDefault().transform.position,
                      Quaternion.identity));
             TowerBase _gameTower = GameTowers[GameTowers.Count - 1].GetComponentInChildren<TowerBase>();
             _gameTower.TowerFoundation = GroundTower[selectedGroundTowerID];
             _gameTower.TowerFoundation.SetActive(false);
             Diamonds -= _cindTower.TowerStats[0].Cost;
-            gameHUD.closeTowerShop();
+            gameHUD.CloseTowerShop();
         }
         else
         {
@@ -203,18 +188,11 @@ public class GameMode : MonoBehaviour
     {
         gameHUD.showVictoryPanel();
         victory = true;
-        globals.PassLevel(CurrentLevelRate);
-        
-    }
-    public void OpenNextLevel()
-    {
-        if (SceneManager.GetActiveScene().buildIndex - 1 <= globals.gameLevels.Count)
-        {
-            int _nextLevelNumber = SceneManager.GetActiveScene().buildIndex - 1;
-            globals.gameLevels[_nextLevelNumber].opened = true;// открываем следующий уровень
-          //  PlayerPrefs.SetString("Level" + _nextLevelNumber, lan);
-        }
-        else
-            Debug.Log("пройден последний уровень");
+        CurrentLevelRate = 1;
+        if (LosesUnits == 0) // если не пропустил мобов
+            CurrentLevelRate++;
+        if(Diamonds >= DiamondsToGoodRate)
+            CurrentLevelRate++;
+        globals.CompleteLevel(CurrentLevelRate);
     }
 }
